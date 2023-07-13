@@ -1,0 +1,9 @@
+# docker-compose.yaml
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9999:9999

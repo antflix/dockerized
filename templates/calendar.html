@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+</head>
+
+<style>
+  /* <!--sidebar--> */
+  body {
+    font-family: "Lato", sans-serif;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    display: block;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left .5s;
+    /* Change margin-left to margin-right */
+  }
+
+  .sidebar-button {
+    position: fixed;
+    bottom: 60px;
+    right: 5px;
+    font-size: 0px;
+    color: #111;
+    background-color: #817c7c;
+    padding: 10px 20px;
+    border-radius: 0px;
+    cursor: pointer;
+  }
+
+  .background {
+    background-color: #222222;
+
+  }
+
+  .bottom {
+    background-color: #222222;
+  }
+
+  .ceilings {
+    background-color: #222222;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<body class="bottom">
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+  </script>
+
+  <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('sw.js')
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/').then(function (registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
+
+
+  </script>
+
+  <div id="mySidenav" class="sidenav">
+    <!-- <a href="javascript:void(0)" class="sidebar-button" onclick="toggleNav()">&#9776;</a> -->
+    <a href="{{ url_for('form') }}"><br><i class="w3-xlarge fas fa-home w3-text-light-blue"></i>Home</a>
+    <a href="{{ url_for('count') }}"><i class="fas fa-calculator w3-text-light-blue"></i>Count Helper</a>
+    <a href="{{ url_for('todo') }}"><i class="fas fa-check-square w3-text-light-blue"></i>To-do List</a>
+    <a href="{{ url_for('calendar') }}"><i class="fas fa-calendar w3-text-light-blue"></i>Calendar</a>
+
+  </div>
+
+
+
+  <div id="main">
+    <span class="sidebar-button" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
+  </div>
+
+  <script>
+    function toggleNav() {
+      var sidenav = document.getElementById("mySidenav");
+      var main = document.getElementById("main");
+
+      if (sidenav.style.width === "250px") {
+        sidenav.style.width = "0";
+        main.style.marginRight = "0";
+      } else {
+        sidenav.style.width = "250px";
+        main.style.marginRight = "250px";
+      }
+    }
+  </script>
+  <!-- <div style="filter: invert(1);">
+    <div class="container" style="filter: hue-rotate(18.73deg) saturate(50.61%) brightness(82.86%)"> -->
+      <iframe class="responsive-iframe"
+        src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23222222&ctz=America%2FChicago&src=YW1lby5lZWNpQGdtYWlsLmNvbQ&color=%23039BE5"
+        style="border:solid 1px #777" width="600" height="800" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </div>
+
+
+  <div style="filter: invert(1);">
+    <div class="w3-container" style="margin-bottom: 160px; filter: hue-rotate(18.73deg) saturate(1.61%) brightness(82.86%)">
+      <iframe class="responsive-iframe "
+        src="https://docs.google.com/forms/d/e/1FAIpQLSeNE1eOYrUfvlepdesV0SoBIvQcod96YSWJ3cnfar2kxwmPug/viewform?embedded=true"
+        width="600" height="1200" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+    </div>
+  </div>
+
+</body>
+
+</html>

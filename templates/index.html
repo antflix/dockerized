@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Bootstrap 4 CSS -->
+  <meta charset="UTF-8">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+  <!-- Font Awesome CSS -->
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+  <meta name="description" content="A Progressive Web App that autogenerates a material list based on user input.">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <link rel="icon" sizes="512x512" href="{{ url_for('static', filename='MLM3000.png') }}">
+  <meta name="theme-color" content="#030303">
+  <link rel="manifest" href="manifest.json">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.7">
+
+
+  <style>
+    .tile {
+      width: 100%;
+      background-color: #030303;
+      margin: auto;
+
+    }
+
+    #tile-1 .tab-pane {
+      padding: 1;
+      height: 1;
+      background-color: #030303;
+    }
+
+    #tile-1 .nav-tabs {
+      position: relative;
+      border: none !important;
+      background-color: #3e3c3c;
+      color: #39bcd3 !important;
+
+
+      /*   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); */
+      border-radius: 6px;
+    }
+
+    #tile-1 .nav-tabs li {
+      margin: 0px !important;
+      color: #39bcd3 !important;
+
+    }
+
+    #tile-1 .nav-tabs li a {
+      position: relative;
+      margin-right: 0px !important;
+      padding: 20px 40px !important;
+      font-size: 32px;
+      border: none !important;
+      color: #787474;
+    }
+
+    #tile-1 .nav-tabs a:hover {
+      background-color: #484848 !important;
+      border: none;
+      color: #39bcd3 !important;
+
+    }
+
+    #tile-1 .slider {
+      display: inline-block;
+      width: 50%;
+      height: 4px;
+      border-radius: 3px;
+      background-color: #39bcd3;
+      position: absolute;
+      z-index: 1200;
+      bottom: 0;
+      transition: all .4s linear;
+
+    }
+
+    #tile-1 .nav-tabs .active {
+      background-color: transparent !important;
+      border: none !important;
+      color: #39bcd3 !important;
+    }
+
+    /* <!--sidebar--> */
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      display: block;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    #main {
+      transition: margin-left .5s;
+      /* Change margin-left to margin-right */
+    }
+
+    .sidebar-button {
+      position: fixed;
+      bottom: 60px;
+      right: 5px;
+      font-size: 0px;
+      color: #111;
+      background-color: #817c7c;
+      padding: 10px 20px;
+      border-radius: 0px;
+      cursor: pointer;
+    }
+
+    .background {
+      background-color: #222222;
+
+    }
+
+    .bottom {
+      background-color: #222222;
+    }
+
+    .ceilings {
+      background-color: #222222;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+  </style>
+
+<body class="bottom">
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+  </script>
+
+  <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('sw.js')
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/').then(function (registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
+
+
+  </script>
+
+  <div id="mySidenav" class="sidenav">
+    <!-- <a href="javascript:void(0)" class="sidebar-button" onclick="toggleNav()">&#9776;</a> -->
+    <a href="{{ url_for('form') }}"><br><i class="w3-xlarge fas fa-home w3-text-light-blue"></i>Home</a>
+    <a href="{{ url_for('count') }}"><i class="fas fa-calculator w3-text-light-blue"></i>Count Helper</a>
+    <a href="{{ url_for('todo') }}"><i class="fas fa-check-square w3-text-light-blue"></i>To-do List</a>
+    <a href="{{ url_for('calendar') }}"><i class="fas fa-calendar w3-text-light-blue"></i>Calendar</a>
+
+  </div>
+
+
+
+  <div id="main">
+    <span class="sidebar-button" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
+  </div>
+
+  <script>
+    function toggleNav() {
+      var sidenav = document.getElementById("mySidenav");
+      var main = document.getElementById("main");
+
+      if (sidenav.style.width === "250px") {
+        sidenav.style.width = "0";
+        main.style.marginRight = "0";
+      } else {
+        sidenav.style.width = "250px";
+        main.style.marginRight = "250px";
+      }
+    }
+  </script>
+
+  <div class="tile w3-black w3-xlarge" id="tile-1">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+      <div class="slider"></div>
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+          aria-selected="true"><i class="fas fa-plug"></i> Walls</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+          aria-selected="false"><i class="fas fa-lightbulb"></i> Ceilings</a>
+      </li>
+
+    </ul>
+    <form method="POST" action="{{ url_for('form') }}">
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="background">
+            <details>
+              <summary>
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Duplex Outlets: <span class="w3-text-orange" id="duplexOutletsTotal"></span><br> <label for="standard"
+                  class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Standard:</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="standard" name="standard"
+                  placeholder="0" /><br>
+              </summary>
+              <label for="decora" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Decora:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="decora" name="decora" placeholder="0" /><br>
+
+              <label for="gfci" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;GFCI:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="gfci" name="gfci" placeholder="0" /><br>
+
+              <label for="cutin" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Cut-in:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="cutin" name="cutin" placeholder="0" /><br>
+
+              <label for="surface" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Surface Mounted:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="surface" name="surface" placeholder="0" /><br>
+
+              <label for="1switch"
+                class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Controlled(switched):</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="1switch" name="1switch" placeholder="0" />
+            </details>
+
+
+
+            <script>
+              // Get references to the input elements for Duplex Outlets
+              const standardInput = document.getElementById('standard');
+              const decoraInput = document.getElementById('decora');
+              const gfciInput = document.getElementById('gfci');
+              const cutinInput = document.getElementById('cutin');
+              const surfaceInput = document.getElementById('surface');
+              const switchedInput = document.getElementById('1switch');
+
+              // Get reference to the total element for Duplex Outlets
+              const duplexOutletsTotalElement = document.getElementById('duplexOutletsTotal');
+
+              // Function to calculate the sum and update the total element for Duplex Outlets
+              function updateDuplexOutletsTotal() {
+                const standardValue = parseInt(standardInput.value) || 0;
+                const decoraValue = parseInt(decoraInput.value) || 0;
+                const gfciValue = parseInt(gfciInput.value) || 0;
+                const cutinValue = parseInt(cutinInput.value) || 0;
+                const surfaceValue = parseInt(surfaceInput.value) || 0;
+                const switchedValue = parseInt(switchedInput.value) || 0;
+
+                const sum =
+                  standardValue +
+                  decoraValue +
+                  gfciValue +
+                  cutinValue +
+                  surfaceValue +
+                  switchedValue;
+
+                duplexOutletsTotalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements for Duplex Outlets
+              standardInput.addEventListener('input', updateDuplexOutletsTotal);
+              decoraInput.addEventListener('input', updateDuplexOutletsTotal);
+              gfciInput.addEventListener('input', updateDuplexOutletsTotal);
+              cutinInput.addEventListener('input', updateDuplexOutletsTotal);
+              surfaceInput.addEventListener('input', updateDuplexOutletsTotal);
+              switchedInput.addEventListener('input', updateDuplexOutletsTotal);
+            </script>
+
+
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i> Quad Outlets: <span class="w3-text-orange" id="quadOutletsTotal"></span><br> <label
+                  for="quad_standard" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Standard:</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="quad_standard" name="quad_standard"
+                  placeholder="0" /><br>
+              </summary>
+              <label for="quad_decora" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Decora:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="quad_decora" name="quad_decora"
+                placeholder="0" /><br>
+
+              <label for="quad_gfci" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;GFCI:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="quad_gfci" name="quad_gfci"
+                placeholder="0" /><br>
+
+              <label for="quad_cutin" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Cut-in:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="quad_cutin" name="quad_cutin"
+                placeholder="0" /><br>
+
+              <label for="quad_surface" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Surface
+                Mounted:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="quad_surface" name="quad_surface"
+                placeholder="0" /><br>
+
+              <label for="quad_controlled" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Controlled
+                (Switched):</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="quad_controlled" name="quad_controlled"
+                placeholder="0" /><br>
+            </details>
+
+
+            <script>
+              // Get references to the input elements for Quad Outlets
+              const quadStandardInput = document.getElementById('quad_standard');
+              const quadDecoraInput = document.getElementById('quad_decora');
+              const quadGfciInput = document.getElementById('quad_gfci');
+              const quadCutinInput = document.getElementById('quad_cutin');
+              const quadSurfaceInput = document.getElementById('quad_surface');
+              const quadControlledInput = document.getElementById('quad_controlled');
+
+              // Get reference to the total element for Quad Outlets
+              const quadOutletsTotalElement = document.getElementById('quadOutletsTotal');
+
+              // Function to calculate the sum and update the total element for Quad Outlets
+              function updateQuadOutletsTotal() {
+                const quadStandardValue = parseInt(quadStandardInput.value) || 0;
+                const quadDecoraValue = parseInt(quadDecoraInput.value) || 0;
+                const quadGfciValue = parseInt(quadGfciInput.value) || 0;
+                const quadCutinValue = parseInt(quadCutinInput.value) || 0;
+                const quadSurfaceValue = parseInt(quadSurfaceInput.value) || 0;
+                const quadControlledValue = parseInt(quadControlledInput.value) || 0;
+
+                const sum =
+                  quadStandardValue +
+                  quadDecoraValue +
+                  quadGfciValue +
+                  quadCutinValue +
+                  quadSurfaceValue +
+                  quadControlledValue;
+
+                quadOutletsTotalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements for Quad Outlets
+              quadStandardInput.addEventListener('input', updateQuadOutletsTotal);
+              quadDecoraInput.addEventListener('input', updateQuadOutletsTotal);
+              quadGfciInput.addEventListener('input', updateQuadOutletsTotal);
+              quadCutinInput.addEventListener('input', updateQuadOutletsTotal);
+              quadSurfaceInput.addEventListener('input', updateQuadOutletsTotal);
+              quadControlledInput.addEventListener('input', updateQuadOutletsTotal);
+            </script>
+
+
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Furniture Feeds: <span class="w3-text-orange" id="furnitureFeedsTotal"></span><br><label
+                  for="3-wire" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;3-Wire</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="3-wire" name="3-wire" placeholder="0" /><br>
+              </summary>
+              <label for="4-wire" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;**4-wire</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="4-wire" name="4-wire" placeholder="0" /><br>
+            </details>
+
+
+
+            <script>
+              // Get references to the input elements for Furniture Feeds
+              const threeWireInput = document.getElementById('3-wire');
+              const fourWireInput = document.getElementById('4-wire');
+
+              // Get reference to the total element for Furniture Feeds
+              const furnitureFeedsTotalElement = document.getElementById('furnitureFeedsTotal');
+
+              // Function to calculate the sum and update the total element for Furniture Feeds
+              function updateFurnitureFeedsTotal() {
+                const threeWireValue = parseInt(threeWireInput.value) || 0;
+                const fourWireValue = parseInt(fourWireInput.value) || 0;
+
+                const sum = threeWireValue + fourWireValue;
+
+                furnitureFeedsTotalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements for Furniture Feeds
+              threeWireInput.addEventListener('input', updateFurnitureFeedsTotal);
+              fourWireInput.addEventListener('input', updateFurnitureFeedsTotal);
+            </script>
+
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Data Box: <span class="w3-text-orange" id="dataBoxTotal"></span><br> <label for="rough_in_data"
+                  class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Rough-in:</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="rough_in_data" name="rough_in_data"
+                  placeholder="0"><br>
+              </summary>
+              <label for="cutin_data" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Cut-in:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="cutin_data" name="cutin_data"
+                placeholder="0"><br>
+
+            </details>
+
+
+            <script>
+              // Get references to the input elements for Data Box
+              const roughInDataInput = document.getElementById('rough_in_data');
+              const cutinDataInput = document.getElementById('cutin_data');
+
+              // Get reference to the total element for Data Box
+              const dataBoxTotalElement = document.getElementById('dataBoxTotal');
+
+              // Function to calculate the sum and update the total element for Data Box
+              function updateDataBoxTotal() {
+                const roughInDataValue = parseInt(roughInDataInput.value) || 0;
+                const cutinDataValue = parseInt(cutinDataInput.value) || 0;
+
+                const sum = roughInDataValue + cutinDataValue;
+
+                dataBoxTotalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements for Data Box
+              roughInDataInput.addEventListener('input', updateDataBoxTotal);
+              cutinDataInput.addEventListener('input', updateDataBoxTotal);
+            </script>
+
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Light Switches: <span class="w3-text-orange" id="totalS"></span><br> <label for="lv_switch"
+                  class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;LV/Cat5:</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="lv_switch" name="lv_switch"
+                  placeholder="0" /><br>
+              </summary>
+              <label for="hv_switch" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Line-Voltage:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="hv_switch" name="hv_switch"
+                placeholder="0" /><br>
+
+              <label for="hv_dimming"
+                class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Line-Voltage(dimming):</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="hv_dimming" name="hv_dimming"
+                placeholder="0" /><br>
+            </details>
+
+
+
+            <script>
+              // Get references to the input elements
+              const lvSwitchInput = document.getElementById('lv_switch');
+              const hvSwitchInput = document.getElementById('hv_switch');
+              const hvDimmingInput = document.getElementById('hv_dimming');
+
+              // Get reference to the total element
+              const totalElementS = document.getElementById('totalS');
+
+              // Function to calculate the sum and update the total element
+              function updateTotalS() {
+                const lvSwitchValue = parseInt(lvSwitchInput.value) || 0;
+                const hvSwitchValue = parseInt(hvSwitchInput.value) || 0;
+                const hvDimmingValue = parseInt(hvDimmingInput.value) || 0;
+
+                const sum = lvSwitchValue + hvSwitchValue + hvDimmingValue;
+
+                totalElementS.textContent = sum;
+              }
+
+              // Add event listeners to the input elements
+              lvSwitchInput.addEventListener('input', updateTotalS);
+              hvSwitchInput.addEventListener('input', updateTotalS);
+              hvDimmingInput.addEventListener('input', updateTotalS);
+            </script>
+
+
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Instahots: <span class="w3-text-orange" id="total"></span><br> <label for="wh_120"
+                  class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;2-pole 208V 40A:</label>
+                <input class='w3-dark-grey w3-text-white' type="number" id="wh_120" name="wh_120" placeholder="0" /><br>
+              </summary>
+              <label for="wh_277" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;*Single-Pole 277V
+                30A:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="wh_277" name="wh_277" placeholder="0" /><br>
+
+              <label for="wh_277v" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Single-Pole 277V
+                40A:</label>
+              <input class='w3-dark-grey w3-text-white' type="number" id="wh_277v" name="wh_277v" placeholder="0" /><br>
+
+            </details>
+
+
+            <script>
+              // Get references to the input elements
+              const wh120Input = document.getElementById('wh_120');
+              const wh277Input = document.getElementById('wh_277');
+              const wh277vInput = document.getElementById('wh_277v');
+
+              // Get reference to the total element
+              const totalElement = document.getElementById('total');
+
+              // Function to calculate the sum and update the total element
+              function updateTotal() {
+                const wh120Value = parseInt(wh120Input.value) || 0;
+                const wh277Value = parseInt(wh277Input.value) || 0;
+                const wh277vValue = parseInt(wh277vInput.value) || 0;
+
+                const sum = wh120Value + wh277Value + wh277vValue;
+
+                totalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements
+              wh120Input.addEventListener('input', updateTotal);
+              wh277Input.addEventListener('input', updateTotal);
+              wh277vInput.addEventListener('input', updateTotal);
+            </script>
+
+          </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="ceilings">
+            <details>
+              <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Instahots: <span class="w3-text-orange" id="total"></span></summary>
+            </details>
+            <label for="wh_120" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;2-pole 208V 40A:</label>
+            <input class='w3-dark-grey w3-text-white' type="number" id="wh_120" name="wh_120" placeholder="0" /><br>
+
+            <label for="wh_277" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;*Single-Pole 277V
+              30A:</label>
+            <input class='w3-dark-grey w3-text-white' type="number" id="wh_277" name="wh_277" placeholder="0" /><br>
+
+            <label for="wh_277v" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Single-Pole 277V
+              40A:</label>
+            <input class='w3-dark-grey w3-text-white' type="number" id="wh_277v" name="wh_277v" placeholder="0" /><br>
+
+            <script>
+              // Get references to the input elements
+              const wh120Input1 = document.getElementById('wh_120');
+              const wh277Input1 = document.getElementById('wh_277');
+              const wh277vInput1 = document.getElementById('wh_277v');
+
+              // Get reference to the total element
+              const totalElement1 = document.getElementById('total');
+
+              // Function to calculate the sum and update the total element
+              function updateTotal() {
+                const wh120Value = parseInt(wh120Input.value) || 0;
+                const wh277Value = parseInt(wh277Input.value) || 0;
+                const wh277vValue = parseInt(wh277vInput.value) || 0;
+
+                const sum = wh120Value + wh277Value + wh277vValue;
+
+                totalElement.textContent = ` ${sum}`;
+              }
+
+              // Add event listeners to the input elements
+              wh120Input.addEventListener('input', updateTotal);
+              wh277Input.addEventListener('input', updateTotal);
+              wh277vInput.addEventListener('input', updateTotal);
+            </script>
+
+          </div>
+
+        </div>
+
+      </div>
+  </div>
+
+  <input type="submit" value="Generate" class="w3-bottom w3-xxlarge w3-block  w3-green">
+  </form>
+
+  <!-- jQuery JS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <!-- Bootstrap JS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js'></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      $("#tile-1 .nav-tabs a").click(function () {
+
+        var position = $(this).parent().position();
+
+        var width = $(this).parent().width();
+
+        $("#tile-1 .slider").css({ "left": + position.left, "width": width });
+
+      });
+      var actWidth = $("#tile-1 .nav-tabs").find(".active").parent("li").width();
+
+      var actPosition = $("#tile-1 .nav-tabs .active").position();
+
+      $("#tile-1 .slider").css({ "left": + actPosition.left, "width": actWidth });
+
+    });  
+  </script>
+</body>
+
+</html>

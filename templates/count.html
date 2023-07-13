@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+
+<head>
+  <title>Item Counter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background-color: #222222;
+      color: #0b0b0b;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #4d73ac;
+      padding: 30px 40px;
+      color: white;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 10px;
+      color: black;
+      
+    }
+
+    label {
+      margin-right: 5px;
+      color: #ffffff;
+      margin-left: 5px;
+    }
+
+    input[type="text"] {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      width: 75%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+      color: black;
+    }
+
+    button[type="submit"] {
+      padding: 10px;
+      width: 25%;
+      background: #d9d9d9;
+      color: #555555;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+
+    button:hover {
+      background-color: #bbb;
+      color: black
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      margin-left: 5px;
+    }
+
+    .item-button {
+
+      width: 200px;
+      height: 200px;
+      font-size: x-large;
+    }
+
+    .square-button {
+      width: 200px;
+      height: 200px;
+    }
+
+
+    @media (max-width: 768px) {
+      .item-button {
+        width: 50%;
+
+      }
+    }
+
+
+    .count {
+      font-weight: bold;
+      padding-left: 20px;
+      color: lightgrey;
+      font-size: xx-large;
+    }
+
+    /* <!--sidebar--> */
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      display: block;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    #main {
+      transition: margin-left .5s;
+      /* Change margin-left to margin-right */
+    }
+
+    .sidebar-button {
+      position: fixed;
+      bottom: 60px;
+      right: 5px;
+      font-size: 0px;
+      color: #111;
+      background-color: #817c7c;
+      padding: 10px 20px;
+      border-radius: 0px;
+      cursor: pointer;
+    }
+
+
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+.count-helper-container { text-align: center; }
+
+.count-helper-container h2 { margin-top: 25px;color: white;}
+
+.count-helper-container form { margin-top: 0px; padding-top: 70px; }
+  </style>
+  <div class="w3-mobile">
+    <div style=>
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myLinks");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+      </script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          $(".item-button").click(function () {
+            var item = $(this).attr("data-item");
+            $.post("/increment", { item: item }, function (data) {
+              $("#count-" + item).text(data);
+            });
+          });
+        });
+      </script>
+</head>
+
+<body>
+  
+  <div id="mySidenav" class="sidenav">
+    <!-- <a href="javascript:void(0)" class="sidebar-button" onclick="toggleNav()">&#9776;</a> -->
+    <a href="{{ url_for('form') }}"><br><i class="w3-xlarge fas fa-home w3-text-light-blue"></i>Home</a>
+    <a href="{{ url_for('count') }}"><i class="fas fa-calculator w3-text-light-blue"></i>Count Helper</a>
+    <a href="{{ url_for('todo') }}"><i class="fas fa-check-square w3-text-light-blue"></i>To-do List</a>
+    <a href="{{ url_for('calendar') }}"><i class="fas fa-calendar w3-text-light-blue"></i>Calendar</a>
+
+  </div>
+
+
+
+  <div id="main">
+    <span class="sidebar-button" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
+  </div>
+
+  <script>
+    function toggleNav() {
+      var sidenav = document.getElementById("mySidenav");
+      var main = document.getElementById("main");
+
+      if (sidenav.style.width === "250px") {
+        sidenav.style.width = "0";
+        main.style.marginRight = "0";
+      } else {
+        sidenav.style.width = "250px";
+        main.style.marginRight = "250px";
+      }
+    }
+  </script>
+  <div class="count-helper-container">
+    <h2 class="w3-top" style="text-align:center;top:1px">Count Helper</h2>
+    <form method="POST" class="header">
+      <label for="item">Item:</label>
+      <input type="text" name="item" id="item" />
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  <br />
+  {% for item, count in items.items() %}
+  <div class="item">
+    <button class="item-button" data-item="{{ item }}">{{ item }}</button>
+    <span class="count" id="count-{{ item }}">{{ count }}</span>
+  </div>
+  {% endfor %}
+  <script>
+    const colors = [
+      "#335782",
+      "#3f9d8a",
+      "#bec13f",
+      "#823333",
+      "#d95c32",
+      "#c81267",
+    ];
+    const buttons = document.querySelectorAll(".item-button");
+    buttons.forEach((button, index) => {
+      const color = colors[index % colors.length];
+      button.style.backgroundColor = color;
+    });
+  </script>
+  </div>
+
+  <!-- End smartphone / tablet look -->
+  </div>
+</body>
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    display: block;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left .5s;
+  }
+
+  .sidebar-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 0px;
+    color: #111;
+    background-color: #817c7c;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<body>
+
+
+  <div id="mySidenav" class="sidenav">
+    <!-- <a href="javascript:void(0)" class="sidebar-button" onclick="toggleNav()">&#9776;</a> -->
+    <a href="{{ url_for('form') }}"><i class="fas fa-home w3-text-teal"></i>Home</a>
+    <a href="{{ url_for('count') }}"><i class="fas fa-calculator w3-text-teal"></i>Count Helper</a>
+    <a href="{{ url_for('todo') }}"><i class="fas fa-check-square w3-text-teal"></i>To-do List</a>
+    <a href="#">Instructions</a>
+
+  </div>
+
+  <div id="main">
+    <span class="sidebar-button" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
+  </div>
+
+  <script>
+    function toggleNav() {
+      var sidenav = document.getElementById("mySidenav");
+      var main = document.getElementById("main");
+
+      if (sidenav.style.width === "250px") {
+        sidenav.style.width = "0";
+        main.style.marginRight = "0";
+      } else {
+        sidenav.style.width = "250px";
+        main.style.marginRight = "250px";
+      }
+    }
+  </script>
+
+
+
+</body>
+<!-- MADE BY SEAN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+
+</html>
