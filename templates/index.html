@@ -18,7 +18,78 @@
   <link rel="manifest" href="manifest.json">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/switchery@0.8.2/dist/switchery.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/switchery@0.8.2/dist/switchery.min.js"></script>
+  
+  <style>
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
 
+    .text {
+      margin-left: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .round {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+    }
+
+    .round:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    input:checked + .round {
+      background-color: #2196F3;
+    }
+
+    input:focus + .round {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .round:before {
+      transform: translateX(26px);
+    }
+
+    /* Rounded rounds */
+    .round.round {
+      border-radius: 34px;
+    }
+
+    .round.round:before {
+      border-radius: 50%;
+    }
+    </style>
 
   <style>
     .tile {
@@ -89,6 +160,7 @@
     /* <!--sidebar--> */
     body {
       font-family: "Lato", sans-serif;
+      display: flex;
     }
 
     .sidenav {
@@ -165,8 +237,10 @@
         font-size: 18px;
       }
     }
+    
   </style>
-
+  
+  
 <body class="bottom">
   <script>
     function myFunction() {
@@ -194,8 +268,6 @@
         });
       });
     }
-
-
 
   </script>
 
@@ -234,9 +306,12 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified" role="tablist">
       <div class="slider"></div>
+      
       <li class="nav-item">
+        
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
           aria-selected="true"><i class="fas fa-plug"></i> Walls</a>
+          
       </li>
       <li class="nav-item">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
@@ -244,13 +319,26 @@
       </li>
 
     </ul>
+    
     <form method="POST" action="{{ url_for('form') }}">
       <!-- Tab panes -->
+      <div class="toggle-container w3-bar-block w3-centered">
+
+        <label class="toggle">
+          <input type="checkbox" onchange="toggleText(this)">
+          <span class="round"></span>
+        </label>
+        <div class="text" id="text">Standard</div>
+      </div>
+
+      
+      
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <div class="background">
-            <details>
+       
+            
+              
               <summary>
+                
                 <i class="fa fa-info-circle" aria-hidden="true"></i> Duplex Outlets: <span class="w3-text-orange" id="duplexOutletsTotal"></span><br> <label for="standard"
                   class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Standard:</label>
                 <input class='w3-dark-grey w3-text-white' type="number" id="standard" name="standard"
@@ -623,6 +711,15 @@
       $("#tile-1 .slider").css({ "left": + actPosition.left, "width": actWidth });
 
     });  
+    function toggleText(checkbox) {
+      var textElement = document.getElementById("text");
+      
+      if (checkbox.checked) {
+        textElement.innerHTML = "Decora";
+      } else {
+        textElement.innerHTML = "Standard";
+      }
+    }
   </script>
 </body>
 
