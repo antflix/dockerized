@@ -18,78 +18,9 @@
   <link rel="manifest" href="manifest.json">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/switchery@0.8.2/dist/switchery.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/switchery@0.8.2/dist/switchery.min.js"></script>
-  
-  <style>
-    .toggle-container {
-      display: flex;
-      align-items: center;
-    }
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    .text {
-      margin-left: 10px;
-      text-align: center;
-      font-weight: bold;
-      color: #2196F3;
-    }
-
-    .toggle {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-
-    .toggle input { 
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .round {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-    }
-
-    .round:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-    }
-
-    input:checked + .round {
-      background-color: #2196F3;
-    }
-
-    input:focus + .round {
-      box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked + .round:before {
-      transform: translateX(26px);
-    }
-
-    /* Rounded rounds */
-    .round.round {
-      border-radius: 34px;
-    }
-
-    .round.round:before {
-      border-radius: 50%;
-    }
-    </style>
 
   <style>
     .tile {
@@ -160,7 +91,6 @@
     /* <!--sidebar--> */
     body {
       font-family: "Lato", sans-serif;
-      display: flex;
     }
 
     .sidenav {
@@ -237,11 +167,167 @@
         font-size: 18px;
       }
     }
-    
+    div.btn-container i{
+      display: inline-block;
+      position: relative;
+      margin-top: 30px;
+      top: -9px;
+  }
+  
+  label {
+      font-size: 13px;
+      color: #626262;
+      font-weight: bold;
+  }
+  
+  .btn-color-mode-switch{
+      display: inline-block;
+      margin: 0px;
+      position: relative;
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner{
+      margin: 0px;
+      width: 180px;
+      height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #333333;
+      color: #4f4d4d;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+      /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
+      display: block;
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner:before{
+      content: attr(data-on);
+      position: absolute;
+      font-size: 16px;
+      font-weight: bold;
+      font-weight: 500;
+      top: 7px;
+      right: 20px;
+  
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner:after{
+      content: attr(data-off);
+      font-weight: bold;
+      width: 90px;
+      font-size: 16
+      height 20px; 
+      color: white;
+      background: #616262;
+      border-radius: 26px;
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0px 0px 6px -2px #111;
+      padding: 8px 0px;
+  } 
+  
+  .btn-color-mode-switch > .alert{
+      display: none;
+      background: #FF9800;
+      border: none;
+      color: #fefdfd;
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"]{
+      cursor: pointer;
+      width: 90px;
+      height: 25px;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      margin: 0px;
+  }
+  
+  /* slider label text color */
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
+    background: #333333;
+    color: #525151;
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:after{
+      content: attr(data-on);
+      left: 88px;
+      background: #616262;
+      
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before{
+      content: attr(data-off);
+      right: auto;
+      left: 20px;
+  }
+  
+
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked ~ .alert{
+      display: block;
+  }
+  
+  /*mode preview*/
+  .dark-preview{
+      background: #222222;
+  }
+
+  /* plug dark color */ 
+  .dark-preview div.btn-container .standard-icon{
+      color: #09a6ae;
+      opacity: .3;
+  }
+
+ 
+  
+  .dark-preview div.btn-container .decora-icon{
+      color: #09a6ae;
+      opacity: 1;
+  }
+  
+  .white-preview{
+      background: #222222;
+      color: #09a6ae;
+  } 
+  
+  /* moon light color */
+  .white-preview div.btn-container .standard-icon {
+      color: #09a6ae;
+      opacity: .8;
+  }
+  
+  /*plug selected color*/
+  .white-preview div.btn-container .decora-icon{
+      color: #09a6ae;
+      opacity: .3;
+
+
+  }
+  
+  
+  p.by a{
+      text-decoration: none;
+      color: #000;
+  }
+  
+  .dark-preview p.by a{
+      color: #777;
+  }
+  
+  .white-preview p.by a{
+      color: #000;
+  }
+  
   </style>
-  
-  
-<body class="bottom">
+
+<body class="bottom white-preview">
   <script>
     function myFunction() {
       var x = document.getElementById("myLinks");
@@ -268,6 +354,8 @@
         });
       });
     }
+
+
 
   </script>
 
@@ -301,17 +389,14 @@
     }
   </script>
 
-  <div class="tile w3-black w3-xlarge" id="tile-1">
+  <div class="tile w3-xlarge" id="tile-1" style="background-color:#222222; color:white;">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified" role="tablist">
       <div class="slider"></div>
-      
       <li class="nav-item">
-        
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
           aria-selected="true"><i class="fas fa-plug"></i> Walls</a>
-          
       </li>
       <li class="nav-item">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
@@ -319,31 +404,32 @@
       </li>
 
     </ul>
-    
     <form method="POST" action="{{ url_for('form') }}">
       <!-- Tab panes -->
-      <div class="toggle-container w3-bar-block w3-centered">
-
-        <label class="toggle">
-          <input type="checkbox" onchange="toggleText(this)">
-          <span class="round"></span>
-        </label>
-        <div class="text" id="text">Standard</div>
-      </div>
-
-      
-      
       <div class="tab-content">
-       
-            
-              
+        
+          <div class="btn-container w3-center" style="background:#222222; margin-top:20px;">
+            <img src="/static/standard.png" class="standard-icon" style="position: relative;top: -14px; right:-5px;" width="36" height="36" alt="Icon">
+              <label class="switch btn-color-mode-switch ">
+                    <input type="checkbox" name="color_mode" id="color_mode" value="1">
+                    <label for="color_mode" data-on="Decora" data-off="Standard" class="btn-color-mode-switch-inner"></label>
+              </label>
+              <img src="/static/decoras.png" class="decora-icon" style="position: relative;top: -14px; right:5px;" width="36" height="36" alt="Icon">
+          </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="script.js"></script>
+
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="background">
+            <details>
               <summary>
-                
                 <i class="fa fa-info-circle" aria-hidden="true"></i> Duplex Outlets: <span class="w3-text-orange" id="duplexOutletsTotal"></span><br> <label for="standard"
                   class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Standard:</label>
                 <input class='w3-dark-grey w3-text-white' type="number" id="standard" name="standard"
                   placeholder="0" /><br>
               </summary>
+
+              
               <label for="decora" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Decora:</label>
               <input class='w3-dark-grey w3-text-white' type="number" id="decora" name="decora" placeholder="0" /><br>
 
@@ -361,6 +447,8 @@
               <input class='w3-dark-grey w3-text-white' type="number" id="1switch" name="1switch" placeholder="0" />
             </details>
 
+            
+            
 
 
             <script>
@@ -591,8 +679,7 @@
               hvDimmingInput.addEventListener('input', updateTotalS);
             </script>
 
-
-            <details>
+            <details style="margin-bottom: 90px;">
               <summary><i class="fa fa-info-circle" aria-hidden="true"></i>Instahots: <span class="w3-text-orange" id="total"></span><br> <label for="wh_120"
                   class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;2-pole 208V 40A:</label>
                 <input class='w3-dark-grey w3-text-white' type="number" id="wh_120" name="wh_120" placeholder="0" /><br>
@@ -711,14 +798,21 @@
       $("#tile-1 .slider").css({ "left": + actPosition.left, "width": actWidth });
 
     });  
-    function toggleText(checkbox) {
-      var textElement = document.getElementById("text");
-      
-      if (checkbox.checked) {
-        textElement.innerHTML = "Decora";
-      } else {
-        textElement.innerHTML = "Standard";
-      }
+    $(document).ready(function() {
+        $("#color_mode").on("change", function () {
+            colorModePreview(this);
+        })
+    });
+    
+    function colorModePreview(ele) {
+        if($(ele).prop("checked") == true){
+            $('body').addClass('dark-preview');
+            $('body').removeClass('white-preview');
+        }
+        else if($(ele).prop("checked") == false){
+            $('body').addClass('white-preview');
+            $('body').removeClass('dark-preview');
+        }
     }
   </script>
 </body>
