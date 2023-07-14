@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+ <head>
   <!-- Bootstrap 4 CSS -->
   <meta charset="UTF-8">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
@@ -20,39 +19,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.7">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
   <style>
     .tile {
       width: 100%;
       background-color: #030303;
       margin: auto;
-
     }
-
     #tile-1 .tab-pane {
       padding: 1;
       height: 1;
       background-color: #030303;
     }
-
     #tile-1 .nav-tabs {
       position: relative;
       border: none !important;
       background-color: #3e3c3c;
       color: #39bcd3 !important;
-
-
-      /*   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); */
       border-radius: 6px;
     }
-
     #tile-1 .nav-tabs li {
       margin: 0px !important;
       color: #39bcd3 !important;
-
     }
-
     #tile-1 .nav-tabs li a {
       position: relative;
       margin-right: 0px !important;
@@ -61,14 +49,11 @@
       border: none !important;
       color: #787474;
     }
-
     #tile-1 .nav-tabs a:hover {
       background-color: #484848 !important;
       border: none;
       color: #39bcd3 !important;
-
     }
-
     #tile-1 .slider {
       display: inline-block;
       width: 50%;
@@ -79,20 +64,15 @@
       z-index: 1200;
       bottom: 0;
       transition: all .4s linear;
-
     }
-
     #tile-1 .nav-tabs .active {
       background-color: transparent !important;
       border: none !important;
       color: #39bcd3 !important;
     }
-
-    /* <!--sidebar--> */
     body {
       font-family: "Lato", sans-serif;
     }
-
     .sidenav {
       height: 100%;
       width: 0;
@@ -106,7 +86,6 @@
       padding-top: 60px;
       display: block;
     }
-
     .sidenav a {
       padding: 8px 8px 8px 32px;
       text-decoration: none;
@@ -115,11 +94,9 @@
       display: block;
       transition: 0.3s;
     }
-
     .sidenav a:hover {
       color: #f1f1f1;
     }
-
     .sidenav .closebtn {
       position: absolute;
       top: 0;
@@ -127,12 +104,9 @@
       font-size: 36px;
       margin-left: 50px;
     }
-
     #main {
       transition: margin-left .5s;
-      /* Change margin-left to margin-right */
     }
-
     .sidebar-button {
       position: fixed;
       bottom: 60px;
@@ -144,25 +118,19 @@
       border-radius: 0px;
       cursor: pointer;
     }
-
     .background {
       background-color: #222222;
-
     }
-
     .bottom {
       background-color: #222222;
     }
-
     .ceilings {
       background-color: #222222;
     }
-
     @media screen and (max-height: 450px) {
       .sidenav {
         padding-top: 15px;
       }
-
       .sidenav a {
         font-size: 18px;
       }
@@ -173,19 +141,16 @@
       margin-top: 30px;
       top: -9px;
   }
-  
   label {
       font-size: 13px;
-      color: #626262;
+      color: #5af5a7;
       font-weight: bold;
   }
-  
   .btn-color-mode-switch{
       display: inline-block;
       margin: 0px;
       position: relative;
   }
-  
   .btn-color-mode-switch > label.btn-color-mode-switch-inner{
       margin: 0px;
       width: 180px;
@@ -193,33 +158,25 @@
       font-size: 16px;
       font-weight: bold;
       background: #333333;
-      color: #4f4d4d;
+      color: #ffffff;
       border-radius: 26px;
       overflow: hidden;
       position: relative;
       transition: all 0.3s ease;
-      /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
       display: block;
   }
-  
   .btn-color-mode-switch > label.btn-color-mode-switch-inner:before{
       content: attr(data-on);
       position: absolute;
       font-size: 16px;
       font-weight: bold;
-      font-weight: 500;
       top: 7px;
       right: 20px;
-  
   }
-  
   .btn-color-mode-switch > label.btn-color-mode-switch-inner:after{
       content: attr(data-off);
-      font-weight: bold;
       width: 90px;
-      font-size: 16
-      height 20px; 
-      color: white;
+      height: 20px; 
       background: #616262;
       border-radius: 26px;
       position: absolute;
@@ -227,17 +184,14 @@
       top: 2px;
       text-align: center;
       transition: all 0.3s ease;
-      box-shadow: 0px 0px 6px -2px #111;
       padding: 8px 0px;
   } 
-  
   .btn-color-mode-switch > .alert{
       display: none;
       background: #FF9800;
       border: none;
       color: #fefdfd;
   }
-  
   .btn-color-mode-switch input[type="checkbox"]{
       cursor: pointer;
       width: 90px;
@@ -248,83 +202,91 @@
       z-index: 1;
       margin: 0px;
   }
-  
-  /* slider label text color */
   .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
     background: #333333;
-    color: #525151;
+    color: #ffffff;
   }
-  
   .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:after{
       content: attr(data-on);
       left: 88px;
       background: #616262;
-      
   }
-  
   .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before{
       content: attr(data-off);
       right: auto;
       left: 20px;
   }
-  
-
-  
   .btn-color-mode-switch input[type="checkbox"]:checked ~ .alert{
       display: block;
   }
-  
-  /*mode preview*/
   .dark-preview{
       background: #222222;
   }
-
-  /* plug dark color */ 
   .dark-preview div.btn-container .standard-icon{
       color: #09a6ae;
       opacity: .3;
   }
-
- 
-  
   .dark-preview div.btn-container .decora-icon{
       color: #09a6ae;
       opacity: 1;
   }
-  
   .white-preview{
       background: #222222;
       color: #09a6ae;
   } 
-  
-  /* moon light color */
   .white-preview div.btn-container .standard-icon {
       color: #09a6ae;
       opacity: .8;
   }
-  
-  /*plug selected color*/
   .white-preview div.btn-container .decora-icon{
       color: #09a6ae;
       opacity: .3;
-
-
   }
-  
-  
   p.by a{
       text-decoration: none;
       color: #000;
   }
-  
   .dark-preview p.by a{
       color: #777;
   }
-  
   .white-preview p.by a{
       color: #000;
   }
-  
+  .box{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+      background-color: rgba(0, 0, 0, 0.89);
+    border-radius:3px;
+    padding:70px 100px;
+  }
+  .input-container{
+    position:relative;
+    margin-bottom:25px;
+  }
+  .input-container label{
+    position:absolute;
+    top:0px;
+    left:0px;
+    font-size:16px;
+    color:#fff;  
+    transition: all 0.5s ease-in-out;
+  }
+  .input-container input{ 
+    border:0;
+    border-bottom:1px solid #555;  
+    background:transparent;
+    width:100%;
+    padding:8px 0 5px 0;
+    font-size:16px;
+    color:#fff;
+  }
+  .input-container input:focus{ 
+   border:none;  
+   outline:none;
+   border-bottom:1px solid #e74c3c; 
+  }
   </style>
 
 <body class="bottom white-preview">
@@ -389,7 +351,7 @@
     }
   </script>
 
-  <div class="tile w3-xlarge" id="tile-1" style="background-color:#222222; color:white;">
+  <div class="tile w3-white w3-xlarge" id="tile-1">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -407,6 +369,17 @@
     <form method="POST" action="{{ url_for('form') }}">
       <!-- Tab panes -->
       <div class="tab-content">
+        <!-- <div class="white-preview">
+          <div class="btn-container btn-block w3-center">
+            <i class="fa fa-plug" style="color:#09a6ae" aria-hidden="true"></i>
+              <label class="switch btn-color-mode-switch">
+                    <input type="checkbox" name="color_mode" id="color_mode" value="1">
+                    <label for="color_mode" data-on="Standard" data-off="Decora" class="btn-color-mode-switch-inner"></label>
+                </label>
+              <i class="fa fa-moon-o" style="color:#09a6ae" aria-hidden="true"></i>
+          </div>
+        </div>
+       -->
         
           <div class="btn-container w3-center" style="background:#222222; margin-top:20px;">
             <img src="/static/standard.png" class="standard-icon" style="position: relative;top: -14px; right:-5px;" width="36" height="36" alt="Icon">
@@ -416,9 +389,14 @@
               </label>
               <img src="/static/decoras.png" class="decora-icon" style="position: relative;top: -14px; right:5px;" width="36" height="36" alt="Icon">
           </div>
+        
+      
+    
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="script.js"></script>
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="script.js"></script>
-
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <div class="background">
             <details>
@@ -428,8 +406,6 @@
                 <input class='w3-dark-grey w3-text-white' type="number" id="standard" name="standard"
                   placeholder="0" /><br>
               </summary>
-
-              
               <label for="decora" class="w3-text-blue custom-label">&nbsp;&nbsp;&nbsp;Decora:</label>
               <input class='w3-dark-grey w3-text-white' type="number" id="decora" name="decora" placeholder="0" /><br>
 
