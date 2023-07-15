@@ -10,18 +10,14 @@ from duplex import calc_quad, calc_duplex, accumulated_materials, reset_variable
 import os.path
 from google.oauth2 import service_account
 
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-from collections import OrderedDict
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import json
 from openpyxl import Workbook
 
-import gspread
+
 
 
 # DEBUG = True
